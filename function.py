@@ -66,4 +66,22 @@ def calc(exp_list):
             exp_list.pop(i-1)
         else: i += 1
     return exp_list[0]
-        
+
+def priority_calc(exp_list):
+    priority_exp = []
+    i = 0
+    while i < len(exp_list) - 1:
+        if exp_list[i] == '(':
+            exp_list.pop(i)
+            while exp_list[i] != ')':
+                if exp_list[i] == '(':
+                    exp_list = priority_calc(exp_list)
+                priority_exp.append(exp_list[i])
+                exp_list.pop(i)
+            exp_list[i] = calc(priority_exp)
+            priority_exp = []
+        i += 1
+    return exp_list
+
+
+            
